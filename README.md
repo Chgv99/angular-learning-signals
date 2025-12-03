@@ -6,4 +6,5 @@ This tutorial is not meant to be followed using a local Angular project, but I d
 
 Whenever this happened, I either updated the source code or created a different component for it.
 
-> At the time of writing this README, I have two different components: `user-dashboard` and `user-profile-loader`. Both of them are used by the root app component. I believe that this will still be the case when I finish the whole signals tutorial.
+> At the time of writing this README, I have two different components: `user-dashboard` and `user-profile-loader`. Both of them are used by the root app component. I believe that I will follow this dynamic until the end of the tutorial.
+
