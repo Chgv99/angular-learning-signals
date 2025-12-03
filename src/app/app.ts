@@ -1,4 +1,6 @@
-import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+import {Component, signal, computed, ChangeDetectionStrategy} from '@angular/core';
+
+// TODO: Import linkedSignal from @angular/core
 
 @Component({
   selector: 'app-root',
@@ -9,22 +11,22 @@ import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/c
         <span class="status-dot"></span>
         Status: {{ userStatus() }}
       </div>
-
+      
       <div class="status-info">
         <div class="notifications">
-          <strong>Notifications:</strong>
+          <strong>Notifications:</strong> 
           @if (notificationsEnabled()) {
             Enabled
           } @else {
             Disabled
           }
+          <!-- TODO: Add button to toggle notifications -->
         </div>
         <div class="message">
-          <strong>Message:</strong>
-          {{ statusMessage() }}
+          <strong>Message:</strong> {{ statusMessage() }}
         </div>
         <div class="working-hours">
-          <strong>Within Working Hours:</strong>
+          <strong>Within Working Hours:</strong> 
           @if (isWithinWorkingHours()) {
             Yes
           } @else {
@@ -32,7 +34,7 @@ import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/c
           }
         </div>
       </div>
-
+      
       <div class="status-controls">
         <button (click)="goOnline()" [disabled]="userStatus() === 'online'">
           Go Online
@@ -55,15 +57,23 @@ import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/c
 export class App {
   userStatus = signal<'online' | 'away' | 'offline'>('offline');
 
+  // Currently using computed - read-only
   notificationsEnabled = computed(() => this.userStatus() === 'online');
+
+  // TODO: Replace notificationsEnabled with linkedSignal using the same expression:
+  // notificationsEnabled = linkedSignal(() => this.userStatus() === 'online');
 
   statusMessage = computed(() => {
     const status = this.userStatus();
     switch (status) {
-      case 'online': return 'Available for meetings and messages';
-      case 'away': return 'Temporarily away, will respond soon';
-      case 'offline': return 'Not available, check back later';
-      default: return 'Status unknown';
+      case 'online':
+        return 'Available for meetings and messages';
+      case 'away':
+        return 'Temporarily away, will respond soon';
+      case 'offline':
+        return 'Not available, check back later';
+      default:
+        return 'Status unknown';
     }
   });
 
@@ -73,6 +83,12 @@ export class App {
     const isWeekday = now.getDay() > 0 && now.getDay() < 6;
     return isWeekday && hour >= 9 && hour < 17 && this.userStatus() !== 'offline';
   });
+
+  // TODO: Add toggleNotifications method to manually set notificationsEnabled
+  // toggleNotifications() {
+  //   // This works with linkedSignal but would error with computed!
+  //   this.notificationsEnabled.set(!this.notificationsEnabled());
+  // }
 
   goOnline() {
     this.userStatus.set('online');
