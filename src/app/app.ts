@@ -1,6 +1,5 @@
-import {Component, signal, computed, ChangeDetectionStrategy} from '@angular/core';
-
-// TODO: Import linkedSignal from @angular/core
+// Add linkedSignal to existing imports
+import { Component, signal, computed, linkedSignal, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +13,20 @@ import {Component, signal, computed, ChangeDetectionStrategy} from '@angular/cor
       
       <div class="status-info">
         <div class="notifications">
-          <strong>Notifications:</strong> 
+        <strong>Notifications:</strong>
+        @if (notificationsEnabled()) {
+          Enabled
+        } @else {
+          Disabled
+        }
+        <button (click)="toggleNotifications()" class="override-btn">
           @if (notificationsEnabled()) {
-            Enabled
+            Disable
           } @else {
-            Disabled
+            Enable
           }
-          <!-- TODO: Add button to toggle notifications -->
-        </div>
+        </button>
+      </div>
         <div class="message">
           <strong>Message:</strong> {{ statusMessage() }}
         </div>
@@ -58,7 +63,7 @@ export class App {
   userStatus = signal<'online' | 'away' | 'offline'>('offline');
 
   // Currently using computed - read-only
-  notificationsEnabled = computed(() => this.userStatus() === 'online');
+  notificationsEnabled = linkedSignal(() => this.userStatus() === 'online');
 
   // TODO: Replace notificationsEnabled with linkedSignal using the same expression:
   // notificationsEnabled = linkedSignal(() => this.userStatus() === 'online');
@@ -115,5 +120,10 @@ export class App {
         this.userStatus.set('offline');
         break;
     }
+  }
+
+  toggleNotifications() {
+    // This works with linkedSignal but would error with computed!
+    this.notificationsEnabled.set(!this.notificationsEnabled());
   }
 }
