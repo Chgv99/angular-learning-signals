@@ -1,6 +1,7 @@
 // TODO: Add the resource import from @angular/core
-import {Component, signal, computed, ChangeDetectionStrategy} from '@angular/core';
-import {loadUser} from './user-api';
+import { Component, signal, computed, resource, ChangeDetectionStrategy } from '@angular/core';
+
+import { loadUser } from './user-api';
 
 @Component({
   selector: 'app-user-profile-loader',
@@ -10,21 +11,23 @@ import {loadUser} from './user-api';
       <h2>User Profile Loader</h2>
 
       <div>
-        <!-- TODO: Add (click) handlers to call loadUser() with appropriate IDs -->
-        <button>Load User 1</button>
-        <button>Load User 2</button>
-        <button>Load Invalid User</button>
-        <!-- TODO: Add (click) handler to call reloadUser() -->
-        <button>Reload</button>
+        <button (click)="loadUser(1)">Load User 1</button>
+        <button (click)="loadUser(2)">Load User 2</button>
+        <button (click)="loadUser(999)">Load Invalid User</button>
+        <button (click)="reloadUser()">Reload</button>
       </div>
 
       <div class="status">
-        <!-- TODO: Replace with @if blocks for loading, error, and success states -->
-        <!-- Use isLoading(), hasError(), and userResource.hasValue() -->
-        <!-- For loading: show "Loading user..." -->
-        <!-- For error: show error message with userResource.error()?.message -->
-        <!-- For success: show user name and email from userResource.value() -->
-        <p>Click a button to load user data</p>
+        @if (isLoading()) {
+          <p>Loading user...</p>
+        } @else if (hasError()) {
+          <p class="error">Error: {{ userResource.error()?.message }}</p>
+        } @else if (userResource.hasValue()) {
+          <div class="user-info">
+            <h3>{{ userResource.value().name }}</h3>
+            <p>{{ userResource.value().email }}</p>
+          </div>
+        }
       </div>
     </div>
   `,
@@ -32,5 +35,18 @@ import {loadUser} from './user-api';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileLoader {
+  userId = signal(1);
+  userResource = resource({
+    params: () => ({ id: this.userId() }),
+    loader: (params) => loadUser(params.params.id)
+  });
+  isLoading = computed(() => this.userResource.status() === 'loading');
+  hasError = computed(() => this.userResource.status() === 'error');
 
+  loadUser(id: number) {
+    this.userId.set(id);
+  }
+  reloadUser() {
+    this.userResource.reload();
+  }
 }
