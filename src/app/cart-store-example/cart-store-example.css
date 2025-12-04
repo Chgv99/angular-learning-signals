@@ -53,14 +53,6 @@
   background: #d32f2f;
 }
 
-/* CartDisplay Component Styles */
-.cart-display {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 20px 0;
-}
-
 .empty-message {
   text-align: center;
   color: #888;
@@ -77,11 +69,6 @@
 
 .item-info h4 {
   margin: 0 0 4px 0;
-}
-
-.cart-display .price {
-  color: #666;
-  margin: 0;
 }
 
 .quantity-controls {
@@ -105,24 +92,6 @@
   font-size: 1.2em;
   font-weight: bold;
   color: #2e7d32;
-}
-
-.cart-display button {
-  padding: 4px 8px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background: #1976d2;
-  color: white;
-}
-
-.cart-display button.remove {
-  background: #d32f2f;
-}
-
-.cart-display button.clear-btn {
-  background: #f57c00;
-  padding: 8px 16px;
 }
 
 /* App Component Styles */

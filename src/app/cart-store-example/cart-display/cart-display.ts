@@ -46,6 +46,7 @@ import { CartStore } from '../../service/cart-store';
       }
     </div>
   `,
+  styleUrl: './cart-display.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartDisplay {
