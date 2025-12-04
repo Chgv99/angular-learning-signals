@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model } from '@angular/core';
 import { CustomCheckbox } from './custom-checkbox/custom-checkbox';
 
 @Component({
@@ -9,31 +9,36 @@ import { CustomCheckbox } from './custom-checkbox/custom-checkbox';
       <h1>Custom Checkbox Example</h1>
 
       <div class="demo-section">
-        <!-- TODO: Uncomment and add [(checked)] two-way binding -->
-        <!--
+        
         <custom-checkbox
-          ___ADD_TWO_WAY_BINDING___
+          [(checked)]="agreedToTerms"
           label="I agree to the terms"
         />
 
         <custom-checkbox
-          ___ADD_TWO_WAY_BINDING___
+          [(checked)]="enableNotifications"
           label="Enable notifications"
         />
-        -->
+       
 
         <div class="controls">
           <p>Terms agreed:
-            <!-- TODO: Replace with @if block using agreedToTerms() -->
-            ???
+            @if (agreedToTerms()) {
+              Yes
+            } @else {
+              No
+            }
           </p>
           <p>Notifications:
-            <!-- TODO: Replace with @if block using enableNotifications() -->
-            ???
+            @if (enableNotifications()) {
+              Yes
+            } @else {
+              No
+            }
           </p>
           <!-- TODO: Add (click) handlers -->
-          <button>Toggle Terms from Parent</button>
-          <button>Reset All</button>
+          <button (click)="toggleTermsFromParent()">Toggle Terms from Parent</button>
+          <button (click)="resetAll()">Reset All</button>
         </div>
       </div>
     </div>
@@ -42,15 +47,13 @@ import { CustomCheckbox } from './custom-checkbox/custom-checkbox';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomCheckboxExample {
-  // TODO: Add parent signal models
-  // agreedToTerms = model(false);
-  // enableNotifications = model(true);
-  // TODO: Add methods to test two-way binding
-  // toggleTermsFromParent() {
-  //   this.agreedToTerms.set(!this.agreedToTerms());
-  // }
-  // resetAll() {
-  //   this.agreedToTerms.set(false);
-  //   this.enableNotifications.set(false);
-  // }
+  agreedToTerms = model(false);
+  enableNotifications = model(true);
+  toggleTermsFromParent() {
+    this.agreedToTerms.set(!this.agreedToTerms());
+  }
+  resetAll() {
+    this.agreedToTerms.set(false);
+    this.enableNotifications.set(false);
+  }
 }

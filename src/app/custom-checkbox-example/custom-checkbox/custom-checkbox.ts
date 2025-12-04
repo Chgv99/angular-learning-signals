@@ -1,24 +1,27 @@
 // TODO: Import model and input from @angular/core
-import {Component, ChangeDetectionStrategy} from '@angular/core';
+import { Component, ChangeDetectionStrategy, model, input } from '@angular/core';
 
 @Component({
   selector: 'custom-checkbox',
   template: `
     <label class="custom-checkbox">
-      <!-- TODO: Add checkbox input with [checked] binding and (change) event -->
-      <span class="checkmark"></span>
-      <!-- TODO: Display label -->
-    </label>
+    <input
+      type="checkbox"
+      [checked]="checked()"
+      (change)="toggle()">
+    <span class="checkmark"></span>
+    {{ label() }}
+  </label>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomCheckbox {
-  // TODO: Add model signal for two-way binding
-  // checked = model.required<boolean>();
-  // TODO: Add optional input for label
-  // label = input<string>('');
-  // TODO: Add toggle method
-  // toggle() {
-  //   this.checked.set(!this.checked());
-  // }
+  // Model signal for two-way binding
+  checked = model.required<boolean>();
+  // Optional input for label
+  label = input<string>('');
+  toggle() {
+    // This updates BOTH the component's state AND the parent's model!
+    this.checked.set(!this.checked());
+  }
 }
