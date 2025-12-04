@@ -1,6 +1,6 @@
 // TODO: Import signal from @angular/core
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {ProductCard} from './product-card/product-card';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { ProductCard } from './product-card/product-card';
 
 @Component({
   selector: 'app-shopping-app',
@@ -13,16 +13,16 @@ import {ProductCard} from './product-card/product-card';
         <h2>Signal Inputs (Parent → Child)</h2>
         <p>Data flows down from parent to child via signal inputs:</p>
 
-        <!-- TODO: Change from static values to dynamic signal values -->
         <product-card
-          name="Static Product"
-          price="99"
-          available="true"
+          [name]="productName()"
+          [price]="productPrice()"
+          [available]="productAvailable()"
         />
 
-        <!-- TODO: Add controls to test reactive updates -->
+        <!-- Add controls to test reactivity -->
         <div class="controls">
-          <!-- Add buttons to update product data and toggle availability -->
+          <button (click)="updateProduct()">Update Product Info</button>
+          <button (click)="toggleAvailability()">Toggle Availability</button>
         </div>
       </div>
     </div>
@@ -31,16 +31,14 @@ import {ProductCard} from './product-card/product-card';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShoppingApp {
-  // TODO: Create parent signals for product data
-  // productName = signal('Demo Product');
-  // productPrice = signal(99);
-  // productAvailable = signal(true);
-  // TODO: Add methods to update parent signals
-  // updateProduct() {
-  //   this.productName.set('Updated Product');
-  //   this.productPrice.set(149);
-  // }
-  // toggleAvailability() {
-  //   this.productAvailable.set(!this.productAvailable());
-  // }
+  productName = signal('Demo Product');
+  productPrice = signal(99);
+  productAvailable = signal(true);
+  updateProduct() {
+    this.productName.set('Updated Product');
+    this.productPrice.set(149);
+  }
+  toggleAvailability() {
+    this.productAvailable.set(!this.productAvailable());
+  }
 }
