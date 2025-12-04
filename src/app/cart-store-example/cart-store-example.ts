@@ -1,22 +1,21 @@
 // TODO: Import inject from @angular/core
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-// TODO: Import CartStore from './cart-store'
-// TODO: Import CartDisplay from './cart-display'
+import {Component, ChangeDetectionStrategy, inject} from '@angular/core';
+import { CartStore } from '../service/cart-store';
+import { CartDisplay } from './cart-display/cart-display';
 
 @Component({
   selector: 'app-cart-store-example',
-  // TODO: Add CartDisplay to imports array
+  imports: [CartDisplay],
   template: `
     <div class="shopping-app">
       <header>
         <h1>Signals with Services Demo</h1>
         <div class="cart-badge">
-          Cart: Loading... items ($Loading...)
+          Cart: {{ cartStore.totalQuantity() }} items (\${{ cartStore.totalPrice() }})
         </div>
       </header>
-
       <main>
-        <!-- TODO: Add cart-display component here -->
+        <cart-display />
       </main>
     </div>
   `,
@@ -24,5 +23,5 @@ import {Component, ChangeDetectionStrategy} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartStoreExample {
-  // TODO: Inject CartStore using inject(CartStore)
+  cartStore = inject(CartStore);
 }

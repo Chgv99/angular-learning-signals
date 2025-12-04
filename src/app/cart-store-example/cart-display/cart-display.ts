@@ -1,4 +1,4 @@
-import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CartStore } from '../../service/cart-store';
 
 
@@ -65,13 +65,18 @@ export class CartDisplay {
   }
 
   increaseQuantity(id: string) {
-    // TODO: Get current item from cartStore.cartItems()
-    // and call cartStore.updateQuantity() with quantity + 1
+    const items = this.cartStore.cartItems();
+    const currentItem = items.find((item) => item.id === id);
+    if (currentItem) {
+      this.cartStore.updateQuantity(id, currentItem.quantity + 1);
+    }
   }
-
   decreaseQuantity(id: string) {
-    // TODO: Get current item from cartStore.cartItems()
-    // and call cartStore.updateQuantity() with quantity - 1 (if > 1)
+    const items = this.cartStore.cartItems();
+    const currentItem = items.find((item) => item.id === id);
+    if (currentItem && currentItem.quantity > 1) {
+      this.cartStore.updateQuantity(id, currentItem.quantity - 1);
+    }
   }
 
   removeItem(id: string) {
