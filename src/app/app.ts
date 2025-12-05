@@ -5,6 +5,7 @@ import { ShoppingApp } from "./shopping-app/shopping-app";
 import { CustomCheckboxExample } from "./custom-checkbox-example/custom-checkbox-example";
 import { CartStoreExample } from "./cart-store-example/cart-store-example";
 import { SignalsDirectivesExample } from "./signals-directives-example/signals-directives-example";
+import { AdvancedShoppingCart } from "./advanced-shopping-cart/advanced-shopping-cart";
 
 
 @Component({
@@ -22,10 +23,12 @@ import { SignalsDirectivesExample } from "./signals-directives-example/signals-d
       <app-cart-store-example />
       <hr />
       <app-signals-directives-example />
+      <hr />
+      <app-advanced-shopping-cart />
     </div>
   `,
   styleUrl: './app.css',
-  imports: [UserProfileLoader, UserDashboard, ShoppingApp, CustomCheckboxExample, CartStoreExample, SignalsDirectivesExample],
+  imports: [UserProfileLoader, UserDashboard, ShoppingApp, CustomCheckboxExample, CartStoreExample, SignalsDirectivesExample, AdvancedShoppingCart],
 })
 export class App {
   
