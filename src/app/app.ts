@@ -4,6 +4,7 @@ import { UserDashboard } from "./user-dashboard/user-dashboard";
 import { ShoppingApp } from "./shopping-app/shopping-app";
 import { CustomCheckboxExample } from "./custom-checkbox-example/custom-checkbox-example";
 import { CartStoreExample } from "./cart-store-example/cart-store-example";
+import { SignalsDirectivesExample } from "./signals-directives-example/signals-directives-example";
 
 
 @Component({
@@ -19,10 +20,12 @@ import { CartStoreExample } from "./cart-store-example/cart-store-example";
       <app-custom-checkbox-example />
       <hr />
       <app-cart-store-example />
+      <hr />
+      <app-signals-directives-example />
     </div>
   `,
   styleUrl: './app.css',
-  imports: [UserProfileLoader, UserDashboard, ShoppingApp, CustomCheckboxExample, CartStoreExample],
+  imports: [UserProfileLoader, UserDashboard, ShoppingApp, CustomCheckboxExample, CartStoreExample, SignalsDirectivesExample],
 })
 export class App {
   
