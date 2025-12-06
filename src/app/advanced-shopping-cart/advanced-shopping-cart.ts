@@ -1,5 +1,4 @@
-// TODO: Import viewChild from @angular/core
-import {Component, signal, computed, ChangeDetectionStrategy} from '@angular/core';
+import { Component, signal, computed, ChangeDetectionStrategy, viewChild } from '@angular/core';
 import { CartSummary } from './cart-summary/cart-summary';
 import { ProductCard } from './product-card/product-card';
 
@@ -47,9 +46,9 @@ import { ProductCard } from './product-card/product-card';
 export class AdvancedShoppingCart {
   cartQuantity = signal(2);
 
-  // TODO: Create viewChild queries to access child components
-  // firstProduct = viewChild(ProductCard);
-  // cartSummary = viewChild(CartSummary);
+  // Query APIs to access child components
+  firstProduct = viewChild(ProductCard);
+  cartSummary = viewChild(CartSummary);
 
   totalPrice = computed(() => {
     return this.cartQuantity() * 999;
@@ -63,12 +62,15 @@ export class AdvancedShoppingCart {
   }
 
   showFirstProductDetails() {
-    // TODO: Get the first product using viewChild and call its highlight() method
-    console.log('TODO: Implement show first product details');
+    const product = this.firstProduct();
+    if (product) {
+      product.highlight();
+    }
   }
-
   initiateCheckout() {
-    // TODO: Get the cart summary using viewChild and call its initiateCheckout() method
-    console.log('TODO: Implement initiate checkout');
+    const summary = this.cartSummary();
+    if (summary) {
+      summary.initiateCheckout();
+    }
   }
 }
