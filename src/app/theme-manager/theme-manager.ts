@@ -1,5 +1,5 @@
 // TODO: Import effect from @angular/core
-import {Component, signal, computed, ChangeDetectionStrategy} from '@angular/core';
+import { Component, signal, computed, ChangeDetectionStrategy, effect } from '@angular/core';
 
 @Component({
   selector: 'app-theme-manager',
@@ -59,12 +59,29 @@ export class ThemeManager {
   themeClass = computed(() => `theme-${this.theme()}`);
 
   constructor() {
-    // TODO: Create effect to save theme to localStorage
-    // Use localStorage.setItem('theme', this.theme()) and console.log
-    // TODO: Create effect to log user activity changes
-    // Read both isLoggedIn() and username() signals and console.log the status
-    // TODO: Create effect with cleanup for timer
-    // Use setInterval to log every 5 seconds, and onCleanup to clear the interval
+    // Save theme to localStorage whenever it changes
+    effect(() => {
+      localStorage.setItem('theme', this.theme());
+      console.log('Theme saved to localStorage:', this.theme());
+    });
+
+    effect(() => {
+      const status = this.isLoggedIn() ? 'logged in' : 'logged out';
+      const user = this.username();
+      console.log(`User ${user} is ${status}`);
+    });
+
+    // Timer effect with cleanup
+    effect((onCleanup) => {
+      const interval = setInterval(() => {
+        console.log('Timer tick - Current theme:', this.theme());
+      }, 5000);
+      // Clean up the interval when the effect is destroyed
+      onCleanup(() => {
+        clearInterval(interval);
+        console.log('Timer cleaned up');
+      });
+    });
   }
 
   toggleTheme() {
