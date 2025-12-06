@@ -4,7 +4,10 @@ Angular project built to follow Angular's official [signals tutorial](https://an
 
 This tutorial is not meant to be followed using a local Angular project, but I did anyways. The tutorial is meant to be followed with the online code editor that Angular provides along-side the tutorial itself, and they sometimes change the source code inside to explain different things.
 
-Whenever this happened, I either updated the source code or created a different component for it.
+You'll find that the `app.ts` file uses multiple components. Each of them contains the solution to one step from the [official tutorial](https://angular.dev/tutorials/signals) (except for the first two steps, whose solution has been overwritten with step three's because the example was the same).
 
-> At the time of writing this README, I have two different components: `user-dashboard` and `user-profile-loader`. Both of them are used by the root app component. I believe that I will follow this dynamic until the end of the tutorial.
+In any case, you'll find a single page with all the working solutions for the tutorial. To launch it locally:
+1. Clone the project
+2. `npm install`
+3. `ng serve` or `npm start`
 
